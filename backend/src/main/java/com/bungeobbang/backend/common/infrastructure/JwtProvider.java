@@ -1,9 +1,7 @@
 package com.bungeobbang.backend.common.infrastructure;
 
 import com.bungeobbang.backend.member.dto.response.MemberTokens;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -34,6 +32,12 @@ public class JwtProvider {
         return new MemberTokens(refreshToken, accessToken);
     }
 
+    public String getSubject(final String token) {
+        return parseToken(token)
+                .getBody()
+                .getSubject();
+    }
+
     private String createToken(final String subject, final Long validityInMilliseconds) {
         final Date now = new Date();
         final Date expiresAt = new Date(now.getTime() + validityInMilliseconds);
@@ -45,5 +49,12 @@ public class JwtProvider {
                 .setExpiration(expiresAt)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    private Jws<Claims> parseToken(final String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token);
     }
 }

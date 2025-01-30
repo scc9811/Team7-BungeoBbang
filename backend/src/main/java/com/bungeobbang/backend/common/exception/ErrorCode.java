@@ -14,7 +14,8 @@ public enum ErrorCode {
     CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증코드가 일치하지 않습니다"),
     EMAIL_CODE_EXPIRED(HttpStatus.GONE, "이메일 인증 코드가 만료되었습니다."),
     INVALID_ADMIN(HttpStatus.BAD_REQUEST, "존재하지 않는 관리자입니다."),
-    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
+    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+    INVALID_AUTHORIZATION_HEADER_FORMAT(HttpStatus.UNAUTHORIZED, "Authorization 헤더가 없거나 유효하지 않은 형식입니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
