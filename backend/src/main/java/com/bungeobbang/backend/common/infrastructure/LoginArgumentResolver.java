@@ -1,5 +1,6 @@
 package com.bungeobbang.backend.common.infrastructure;
 
+import com.bungeobbang.backend.admin.service.AdminStatisticsService;
 import com.bungeobbang.backend.auth.domain.Auth;
 import com.bungeobbang.backend.auth.domain.Authority;
 import com.bungeobbang.backend.auth.domain.dto.Accessor;
@@ -19,6 +20,7 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final BearerAuthorizationExtractor extractor;
     private final JwtProvider jwtProvider;
+    private final AdminStatisticsService adminStatisticsService;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -35,8 +37,8 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
         final String accessToken = extractor.extractAccessToken(webRequest.getHeader(AUTHORIZATION));
         // 추후 토큰 검증 로직 추가 예정
 
-        final Long memberId = Long.valueOf(jwtProvider.getSubject(accessToken));
-        return new Accessor(memberId, Authority.ADMIN);
-
+        final Long adminId = Long.valueOf(jwtProvider.getSubject(accessToken));
+        final Long universityId = adminStatisticsService.getUniversityIdByAdminId(adminId);
+        return new Accessor(adminId, universityId, Authority.ADMIN);
     }
 }
