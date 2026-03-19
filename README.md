@@ -78,7 +78,7 @@
             <td align="center">CI/CD, 인증/인가 기능구현<br>말해요 기능 구현<br>캐싱 및 웹소켓 관리</td>
             <td align="center">답해요 기능 구현<br>채팅 무한 스크롤 구현<br>공통 컴포넌트 문서화</td>
             <td align="center">답해요 API 구현<br>인증,인가 기능 구현<br>CI 파이프라인 구축</td>
-            <td align="center">답해요 API 구현<br> 금칙어 시스템 구현<br>CD 파이프라인 구축</td>
+            <td align="center">말해요 API 구현<br> 금칙어 시스템 구현<br>CD 파이프라인 구축</td>
         </tr>
     </table>
 </p>
